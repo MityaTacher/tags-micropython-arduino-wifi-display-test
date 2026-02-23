@@ -89,32 +89,53 @@
 3. Корректная работа всех эндпоинтов обеспечена
    + GET /api/v1/vacancies/
       - Без параметров:
+
    ![200 OK](review_data/get_all_without_params.png)
+
       - С параметрами: 
+
    ![200 OK](review_data/get_all_with_params.png)
+
    + GET /api/v1/vacancies/{vacancy_id}
       - Существующий id
+
    ![200 OK](review_data/get_one_existing.png)
+
       - Несуществующий id
+
    ![404 Not Found](review_data/get_one_nonexistent.png)
+
    + POST /api/v1/vacancies/
       - Вакансии с указанным `external_id` нет в базе
+
    ![201 Created](review_data/post_vacancies_unique.png)
+
       - Вакансия с указанным `external_id` есть в базе
+
    ![409 Conflict](review_data/post_vacancies_non_unique.png)
+
    + PUT /api/v1/vacancies/{vacancy_id}
       - Указан существующий `id`
+
    ![200 OK](review_data/put_existing.png)
+
       - Указан несуществующий `id`
+
    ![404 Not Found](review_data/put_nonexistent.png)
+
    + DELETE /api/v1/vacancies/{vacancy_id}
       - Указан существующий `id`
+
    ![204 No Content](review_data/delete_existing.png)
+
       - Указан несуществующий `id`
+
    ![404 Not Found](review_data/delete_nonexistent.png)
+
    + POST /api/v1/parse/
+
    ![200 OK](review_data/post_parser.png)
-4. Фоновая задача парсинга работает по заявленному расписанию 
+4. Фоновая задача парсинга работает по заявленному расписанию
    ![log screenshot](review_data/scheduler.png)
 
 ## Итог
