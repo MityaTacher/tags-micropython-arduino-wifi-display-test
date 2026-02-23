@@ -26,7 +26,7 @@
    + **Проблема:** 
    Слишком частый парсинг вакансий, в логах `trigger: interval[0:00:05]`
    + **Файл и строка:** 
-   [app/scheduler.py:13](app/scheduler.py#L13)
+   [app/services/scheduler.py:13](app/services/scheduler.py#L13)
    + **Решение:** 
    Константа `PARSE_SCHEDULE_MINUTES` передается аргументу `seconds`, исправлено на `minutes`, 
    в результате в логах `trigger: interval[0:05:00]`
@@ -37,7 +37,7 @@
    `external_id` которой совпадает с уже имеющейся в базе, эндпоинт вернет ответ в формате JSON и с кодом 200, 
    несмотря на то, что в декораторе заданы `response_model=VacancyRead` и `status_code=status.HTTP_201_CREATED`
    + **Файл и строка:** 
-   [app/api/v1/vacancies.py:52](app/api/v1/vacancies.py#L52)
+   [app/api/v1/vacancies.py:51](app/api/v1/vacancies.py#L51)
    + **Решение:** 
    Вместо возврата вызов исключения: `raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Vacancy already exist')`
 <br><br>
@@ -90,47 +90,47 @@
    + GET /api/v1/vacancies/
       - Без параметров:
 
-   ![200 OK](review_data/get_all_without_params.png)
+      ![200 OK](review_data/get_all_without_params.png)
 
       - С параметрами: 
 
-   ![200 OK](review_data/get_all_with_params.png)
+      ![200 OK](review_data/get_all_with_params.png)
 
    + GET /api/v1/vacancies/{vacancy_id}
       - Существующий id
 
-   ![200 OK](review_data/get_one_existing.png)
+      ![200 OK](review_data/get_one_existing.png)
 
       - Несуществующий id
 
-   ![404 Not Found](review_data/get_one_nonexistent.png)
+      ![404 Not Found](review_data/get_one_nonexistent.png)
 
    + POST /api/v1/vacancies/
       - Вакансии с указанным `external_id` нет в базе
 
-   ![201 Created](review_data/post_vacancies_unique.png)
+      ![201 Created](review_data/post_vacancies_unique.png)
 
       - Вакансия с указанным `external_id` есть в базе
 
-   ![409 Conflict](review_data/post_vacancies_non_unique.png)
+      ![409 Conflict](review_data/post_vacancies_non_unique.png)
 
    + PUT /api/v1/vacancies/{vacancy_id}
       - Указан существующий `id`
 
-   ![200 OK](review_data/put_existing.png)
+      ![200 OK](review_data/put_existing.png)
 
       - Указан несуществующий `id`
 
-   ![404 Not Found](review_data/put_nonexistent.png)
+      ![404 Not Found](review_data/put_nonexistent.png)
 
    + DELETE /api/v1/vacancies/{vacancy_id}
       - Указан существующий `id`
 
-   ![204 No Content](review_data/delete_existing.png)
+      ![204 No Content](review_data/delete_existing.png)
 
       - Указан несуществующий `id`
 
-   ![404 Not Found](review_data/delete_nonexistent.png)
+      ![404 Not Found](review_data/delete_nonexistent.png)
 
    + POST /api/v1/parse/
 
@@ -139,4 +139,8 @@
    ![log screenshot](review_data/scheduler.png)
 
 ## Итог
-
+* Найдено 6 из 8 багов
+* Все эндпоинты работают корректно
+* Приложение возвращает корректные HTTP-статусы и данные
+* Приложены скриншоты Swagger UI с выполненными успешными
+запросами
