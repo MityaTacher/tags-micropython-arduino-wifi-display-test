@@ -78,7 +78,11 @@ async def upsert_external_vacancies(
             result = await session.execute(
                 select(Vacancy).where(Vacancy.external_id == ext_id)
             )
-            vacancy = result.scalar_one()
+            vacancy = result.scalar_one_or_none()
+            if vacancy is None:
+                session.add(Vacancy(**payload))
+                created_count += 1
+                continue
             for field, value in payload.items():
                 setattr(vacancy, field, value)
         else:
