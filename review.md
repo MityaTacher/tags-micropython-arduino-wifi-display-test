@@ -37,7 +37,7 @@
    `external_id` которой совпадает с уже имеющейся в базе, эндпоинт вернет ответ в формате JSON и с кодом 200, 
    несмотря на то, что в декораторе заданы `response_model=VacancyRead` и `status_code=status.HTTP_201_CREATED`
    + **Файл и строка:** 
-   [app/api/v1/vacancies.py:51](app/api/v1/vacancies.py#L51)
+   [app/api/v1/vacancies.py:51-54](app/api/v1/vacancies.py#L51-L54)
    + **Решение:** 
    Вместо возврата вызов исключения: `raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Vacancy already exist')`
 <br><br>
@@ -60,7 +60,7 @@
    Если между этой проверкой и обновлением полей вакансии она будет удалена, `result.scalar_one()` выбросит исключение 
    `sqlalchemy.exc.NoResultFound`
    + **Файл и строка:**
-      [app/crud/vacancy.py:81](app/crud/vacancy.py#L81)
+      [app/crud/vacancy.py:81-85](app/crud/vacancy.py#L81-85)
    + **Воспроизведение ошибки:**
      1. Добавил await asyncio.sleep(10) перед циклом обновления (после получения existing_ids)
      2. Запустил приложение и вызвал парсинг
